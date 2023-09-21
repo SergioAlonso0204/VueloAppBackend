@@ -1,23 +1,22 @@
 const Usuario = require('../models/Usuario'); // Importa el modelo de Usuario
-const bcrypt = require('bcrypt'); // Importa la biblioteca bcrypt para el hash de contraseñas
 const jwt = require('jsonwebtoken'); // Importa la biblioteca jsonwebtoken para tokens JWT
 
 exports.loginUsuario = async (req, res) => {
   try {
-    const { email, password } = req.body; 
+    console.log('Inicio de la función loginUsuario');
+    const { correoElectronico, contraseña } = req.body; 
 
     // Busca al usuario por su correo electrónico
-    const usuario = await Usuario.findOne({ email });
+    const usuario = await Usuario.findOne({ correoElectronico });
 
     if (!usuario) {
+      console.log('Usuario no encontrado');
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    // Verifica la contraseña
-    const coincidenciaContrasena = await bcrypt.compare(password, usuario.password);
-
-    if (!coincidenciaContrasena) {
-      // Si la contraseña no coincide, devuelve un error
+    // Verifica la contraseña en texto plano
+    if (contraseña !== usuario.contraseña) {
+      console.log('Contraseña incorrecta');
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
@@ -29,7 +28,7 @@ exports.loginUsuario = async (req, res) => {
     // Si la autenticación es exitosa, envía el token en la respuesta
     res.status(200).json({ token });
   } catch (error) {
-    // Si ocurre algún error, devuelve un error genérico
-    res.status(500).json({ error: 'Error al iniciar sesión' });
+    console.error('Error en loginUsuario:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
