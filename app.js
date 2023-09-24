@@ -14,12 +14,12 @@ mongoose.connect('mongodb://localhost/AppVuelosDB', {
 });
 
 // Importa las rutas de cada modelo
-/*const lugarRoutes = require('./routes/lugarRoutes');
-const precioRoutes = require('./routes/precioRoutes');
-const reservacionRoutes = require('./routes/reservacionRoutes');
+//const lugarRoutes = require('./routes/lugarRoutes');
+//const precioRoutes = require('./routes/precioRoutes');
+//const reservacionRoutes = require('./routes/reservacionRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
-const vueloRoutes = require('./routes/vueloRoutes');
-*/
+//const vueloRoutes = require('./routes/vueloRoutes');
+
 
 // Importa el controlador de autenticación
 const authController = require('./controllers/authController');
@@ -31,7 +31,7 @@ app.post('/api/usuarios/login', authController.loginUsuario);
 //app.use('/api', lugarRoutes);
 //app.use('/api', precioRoutes);
 //app.use('/api', reservacionRoutes);
-//app.use('/api', usuarioRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 //app.use('/api', vueloRoutes);
 
 // Inicia el servidor en el puerto especificado
