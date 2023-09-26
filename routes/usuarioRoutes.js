@@ -12,7 +12,7 @@ router.post('/login', authController.loginUsuario);
 router.post('/', usuarioController.crearUsuario);
 
 // Ruta para obtener todos los usuarios
-router.get('s/', usuarioController.obtenerUsuarios);
+router.get('/', usuarioController.obtenerUsuarios);
 
 // Ruta para obtener un usuario por su ID
 router.get('/:id', usuarioController.obtenerUsuarioPorId);
