@@ -7,8 +7,16 @@ const vueloEsquema = new mongoose.Schema({
     unique: true,
   },
   aerolinea: String,
-  origen: String,
-  destino: String,
+  origen: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Lugar',
+  },
+  destino: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Lugar',
+  },
+
+  precio: Number,
 });
 
 const Vuelo = mongoose.model('Vuelo', vueloEsquema);

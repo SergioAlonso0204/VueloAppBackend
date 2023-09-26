@@ -20,13 +20,13 @@ exports.loginUsuario = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    // Genera y envía el token de autenticación
+    // Genera y envía el token de autenticación y el rol del usuario
     const token = jwt.sign({ usuarioId: usuario._id }, 'tu_secreto_secreto', {
       expiresIn: '1h',
     });
 
-    // Si la autenticación es exitosa, envía el token en la respuesta
-    res.status(200).json({ token });
+    // Si la autenticación es exitosa, envía el token y el rol en la respuesta
+    res.status(200).json({ token, rol: usuario.rol });
   } catch (error) {
     console.error('Error en loginUsuario:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
